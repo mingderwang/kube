@@ -18,6 +18,7 @@ func pushGist(gist Gist) string {
 	return result
 }
 
+// https://gist.githubusercontent.com/anonymous/04fd2287b1912e26ec46/raw/my-redis-rc.yaml
 func Short(s string, i int) string {
 	if len(s) < i {
 		return s
@@ -26,6 +27,20 @@ func Short(s string, i int) string {
 		return s[:i]
 	}
 	return s[:i-1]
+}
+
+func getFileRequest(tag string, kube *Kube) {
+	var url string = "http://api.log4security.com:8080/kube/" + tag
+	response, err := http.Get(url)
+	if err != nil {
+		log.Fatal("post error: ", err)
+	}
+	defer response.Body.Close()
+	err = json.NewDecoder(response.Body).Decode(&kube)
+	//spew.Dump(kube)
+	if err != nil {
+		log.Fatal("Response json error: ", err)
+	}
 }
 
 func getRequestResponse(url string) {
