@@ -37,7 +37,3 @@ func pushFile(filename string, tag string, description string) {
 		pushToDB(id, filename, tag, description)
 	}
 }
-
-func pushToDB(id string, filename string, tag string, desciption string) {
-	println(id)
-}
