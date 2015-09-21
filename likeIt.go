@@ -1,5 +1,6 @@
 package main
 
 func likeIt(tag string) {
-	println("add a star to", tag)
+	url := "http://api.log4security.com:8080/like/kube/" + tag
+	getRequest(url)
 }

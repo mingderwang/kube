@@ -15,6 +15,19 @@ func pushGist(gist Gist) string {
 	return result
 }
 
+func getRequest(url string) {
+	var obj map[string]interface{}
+	response, err := http.Get(url)
+	if err != nil {
+		log.Fatal("post error: ", err)
+	}
+	defer response.Body.Close()
+	err = json.NewDecoder(response.Body).Decode(&obj)
+	if err != nil {
+		log.Fatal("Response json error: ", err)
+	}
+}
+
 func pushRequest(gist interface{}, url string) string {
 	var obj map[string]interface{}
 
