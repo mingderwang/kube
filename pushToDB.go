@@ -16,8 +16,8 @@ func pushToDB(id string, filename string, tag string, description string) {
 	kube := Kube{
 		id,
 		filename,
-		tag,
 		description,
+		tag,
 		0,
 	}
 	pushKube(kube)
