@@ -10,7 +10,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "kube"
 	app.Usage = "cli for sharing kubernetes resource files repos and management"
-	app.Version = "0.0.1"
+	app.Version = "1.0.0"
 	// global level flags
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
