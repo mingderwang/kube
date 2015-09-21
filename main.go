@@ -31,7 +31,6 @@ func main() {
 				}
 				if len(c.Args()) > 0 {
 					keyword = c.Args()[0]
-					println("searching keyword: ", keyword)
 					searchTag(keyword)
 				} else {
 					println("you need at least one keyword for search. for example: kube search redis")

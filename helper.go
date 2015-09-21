@@ -3,9 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	//	"github.com/davecgh/go-spew/spew"
 	"log"
 	"net/http"
+	"strconv"
+	"unicode/utf8"
 )
 
 //return "" when fail, return gist id when upload success
@@ -15,17 +18,86 @@ func pushGist(gist Gist) string {
 	return result
 }
 
-func getRequest(url string) {
-	var obj map[string]interface{}
+func Short(s string, i int) string {
+	if len(s) < i {
+		return s
+	}
+	if utf8.ValidString(s[:i]) {
+		return s[:i]
+	}
+	return s[:i-1]
+}
+
+func getRequestResponse(url string) {
+	_, err1 := http.Get(url)
+	if err1 != nil {
+		log.Fatal("post error: ", err1)
+	}
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal("post error: ", err)
 	}
 	defer response.Body.Close()
-	err = json.NewDecoder(response.Body).Decode(&obj)
+	//spew.Dump(response.Body)
+	dec := json.NewDecoder(response.Body)
+
+	// read open bracket
+	_, err = dec.Token()
 	if err != nil {
-		log.Fatal("Response json error: ", err)
+		log.Fatal(err)
 	}
+
+	var buffer bytes.Buffer
+
+	for i := 0; i < 85; i++ {
+		if i == 0 {
+			buffer.WriteString("NAME")
+		} else if i == 27 {
+			buffer.WriteString("DESCRIPTION")
+		} else if i == 80 {
+			buffer.WriteString("STARS")
+		} else {
+			buffer.WriteString(" ")
+		}
+	}
+	fmt.Println(buffer.String())
+	var kube Kube
+	// while the array contains values
+	for dec.More() {
+
+		// decode an array value (Message)
+		err := dec.Decode(&kube)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		var buffer bytes.Buffer
+
+		for i := 0; i < 85; i++ {
+			if i == 0 {
+				s1 := Short(kube.Tag, 25)
+				i = i + len(s1) - 4
+				buffer.WriteString(s1)
+			} else if i == 27 {
+				s2 := Short(kube.Description, 51)
+				i = i + len(s2) - 11
+				buffer.WriteString(s2)
+			} else if i == 80 {
+				buffer.WriteString(strconv.Itoa(kube.Like))
+			} else {
+				buffer.WriteString(" ")
+			}
+		}
+		fmt.Println(buffer.String())
+	}
+}
+
+func getRequest(url string) {
+	response, err := http.Get(url)
+	if err != nil {
+		log.Fatal("post error: ", err)
+	}
+	defer response.Body.Close()
 }
 
 func pushRequest(gist interface{}, url string) string {
@@ -35,7 +107,6 @@ func pushRequest(gist interface{}, url string) string {
 	if err != nil {
 		log.Fatal("push gist marshel error: ", err)
 	}
-	//	spew.Dump(jsonData)
 
 	payload := bytes.NewBuffer(jsonData)
 	respond, err := http.Post(url, "application/json", payload)
