@@ -73,7 +73,7 @@ func main() {
 					println("with description: ", description)
 					pushFile(filename, tag, description)
 				} else {
-					println("You need to push with files, for example: kube push my-redis-rc.json -t ming/redis")
+					println("You need to push with files, for example: kube push my-redis-rc.json -t ming.redis")
 
 				}
 			},
@@ -93,7 +93,7 @@ func main() {
 					println("NOTICE: You will get the resource files, you can use kubectl command after that.")
 					getFile(tag)
 				} else {
-					println("NOTICE: You need to specify a tag for download, for example: kube get ming/redis")
+					println("NOTICE: You need to specify a tag for download, for example: kube get ming.redis")
 					println("NOTICE: You can use subcommand search to find one, for example: kube search redis.")
 				}
 			},
