@@ -1,8 +1,7 @@
 package main
 
 import (
-	"encoding/json"
-	"github.com/davecgh/go-spew/spew"
+	//	"github.com/davecgh/go-spew/spew"
 	"io/ioutil"
 	"log"
 )
@@ -32,10 +31,13 @@ func pushFile(filename string, tag string, description string) {
 		true,
 		description,
 	}
-	data, err := json.Marshal(gist)
-	if err != nil {
-		log.Fatal("JSON Error: ", err)
+	//	spew.Dump(gist)
+	id := pushGist(gist)
+	if id != "" {
+		pushToDB(id, filename, tag, description)
 	}
-	spew.Dump(gist)
-	spew.Dump(data)
+}
+
+func pushToDB(id string, filename string, tag string, desciption string) {
+	println(id)
 }
