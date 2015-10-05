@@ -10,7 +10,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "kube"
 	app.Usage = "cli for sharing kubernetes resource files repos and management"
-	app.Version = "1.0.0"
+	app.Version = "1.0.1"
 	// global level flags
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
@@ -40,7 +40,6 @@ func main() {
 		},
 		{
 			Name:    "push",
-			Aliases: []string{"p"},
 			Usage:   "Push resource files to kube.hub with tag",
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -78,8 +77,7 @@ func main() {
 			},
 		},
 		{
-			Name:    "get",
-			Aliases: []string{"g"},
+			Name:    "pull",
 			Usage:   "Get resource files from kube.hub by tag",
 			Action: func(c *cli.Context) {
 				tag := ""
@@ -92,7 +90,7 @@ func main() {
 					println("NOTICE: You will get the resource files, you can use kubectl command after that.")
 					getFile(tag)
 				} else {
-					println("NOTICE: You need to specify a tag for download, for example: kube get ming.redis")
+					println("NOTICE: You need to specify a tag for download, for example: kube pull ming.redis")
 					println("NOTICE: You can use subcommand search to find one, for example: kube search redis.")
 				}
 			},
