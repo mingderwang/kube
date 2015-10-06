@@ -64,12 +64,12 @@ func getRequestResponse(url string) {
 
 	var buffer bytes.Buffer
 
-	for i := 0; i < 85; i++ {
+	for i := 0; i < 105; i++ {
 		if i == 0 {
 			buffer.WriteString("NAME")
-		} else if i == 27 {
+		} else if i == 47 {
 			buffer.WriteString("DESCRIPTION")
-		} else if i == 80 {
+		} else if i == 100 {
 			buffer.WriteString("STARS")
 		} else {
 			buffer.WriteString(" ")
@@ -88,16 +88,16 @@ func getRequestResponse(url string) {
 
 		var buffer bytes.Buffer
 
-		for i := 0; i < 85; i++ {
+		for i := 0; i < 105; i++ {
 			if i == 0 {
-				s1 := Short(kube.Tag, 25)
+				s1 := Short(kube.Tag, 45)
 				i = i + len(s1) - 4
 				buffer.WriteString(s1)
-			} else if i == 27 {
+			} else if i == 47 {
 				s2 := Short(kube.Description, 51)
 				i = i + len(s2) - 11
 				buffer.WriteString(s2)
-			} else if i == 80 {
+			} else if i == 100 {
 				buffer.WriteString(strconv.Itoa(kube.Like))
 			} else {
 				buffer.WriteString(" ")
