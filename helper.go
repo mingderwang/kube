@@ -135,7 +135,7 @@ func pushRequest(gist interface{}, url string) string {
 	if str, ok := obj["id"].(string); ok {
 		return str
 	} else {
-		log.Fatal("Response id is not a string error: ", ok)
+		//		log.Fatal("Response id is not a string error: ", ok)
 		return ""
 	}
 }
