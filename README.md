@@ -25,3 +25,6 @@ GLOBAL OPTIONS:
    --help, -h		show help
    --version, -v	print the version
 ```
+
+#TODO
+Will add "kube install" for installing package with just one command line to kubernetes cluster.
