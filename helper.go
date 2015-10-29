@@ -30,7 +30,7 @@ func Short(s string, i int) string {
 }
 
 func getFileRequest(tag string, kube *Kube) {
-	var url string = "http://api.log4security.com:31819/kube/" + tag
+	var url string = "http://api.log4security.com:32569/kube/" + tag
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal("post error: ", err)
@@ -141,7 +141,7 @@ func pushRequest(gist interface{}, url string) string {
 }
 
 func pushKube(kube Kube) string {
-	const kubeURL string = "http://api.log4security.com:31819/kube"
+	const kubeURL string = "http://api.log4security.com:32569/kube"
 	result := pushRequest(kube, kubeURL)
 	return result
 }

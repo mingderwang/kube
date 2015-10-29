@@ -13,9 +13,9 @@ func getFile(tag string) {
 	getFileRequest(tag, &kube)
 	urlGist := "https://gist.githubusercontent.com/anonymous/" + kube.Gistid + "/raw/" + kube.Filename
 	command1 := "wget"
-	out, err := exec.Command(command1, urlGist).Output()
+	_, err := exec.Command(command1, urlGist).Output()
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("The file is download. %s\n", out)
+	fmt.Printf("The file, %s , is download.\n", kube.Filename)
 }

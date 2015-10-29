@@ -39,8 +39,8 @@ func main() {
 			},
 		},
 		{
-			Name:    "push",
-			Usage:   "Push resource files to kube.hub with tag",
+			Name:  "push",
+			Usage: "Push resource files to kube.hub with tag",
 			Flags: []cli.Flag{
 				cli.StringFlag{
 					Name:  "tag, t",
@@ -77,8 +77,8 @@ func main() {
 			},
 		},
 		{
-			Name:    "pull",
-			Usage:   "Get resource files from kube.hub by tag",
+			Name:  "pull",
+			Usage: "Get resource files from kube.hub by tag",
 			Action: func(c *cli.Context) {
 				tag := ""
 				if len(c.Args()) > 1 {
@@ -87,7 +87,7 @@ func main() {
 				if len(c.Args()) > 0 {
 					tag = c.Args().First()
 					println("get tag: ", tag)
-					println("NOTICE: You will get the resource files, you can use kubectl command after that.")
+					println("HELP: You can run kubectl create -f <the yaml or json file>")
 					getFile(tag)
 				} else {
 					println("NOTICE: You need to specify a tag for download, for example: kube pull ming.redis")
